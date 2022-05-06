@@ -86,6 +86,18 @@ x
 **You can give each element a *Names* default is NULL**
 - ``names(variablename) <- vector``
 
+**Reading Data**
+1. ``read.table()``
+  - passing in the argument of *file, header, sep, colClasses, nrows, etc*
+2. ``read.csv()``
+3. ``readLines()``: for reading lines of a text file
+
+**Writting Data**
+1. ``write.table()``
+2. ``writeLines()``
+3. ``save()``
+
+
 **Interacting with Outside Data**
 1. ``file``
 2. ``gzfile``
@@ -93,13 +105,41 @@ x
 4. ``url``
 
 **Subsetting**
+- ``[`` returns object of the same class as the original
+- ``[[`` is used to extract elements of a list or a dataframe
+  - inside can be index or conditions
+- ``$`` is used to extract elements of a list or data frame by name, similar to ``[[``
 - (vector) using the ``[]`` operator, by putting inside the condition or indices
 - (list) using the ``[[]]`` operator by passing in column name or column indices
 - (list) using the ``$`` for extracting column name
-- (matrix) using ``[]`` by passing the row and column number starting from 0, adding the parameter of ``drop=FALSE`` means it will return as matrix instead of vector
+  - `[[r]][[c]]`` or ``[[c(r, c)]]`` by passing the row and column number
+- (matrix) using ``[[r]][[c]]`` or ``[[c(r, c)]]`` by passing the row and column number starting from 0, adding the parameter of ``drop=FALSE`` means it will return as matrix instead of vector
 
 **Removing NA Values**
-``x[!is.na(x)]``
+```
+x <- c(1,2,NA, 4, NA, 5)
+bad <- is.na(x)
+x[!bad]
+```
+
+**Ensuring Compatibility of two vectors**
+```
+x <- c(1 ,2 ,NA , 4, NA, 5)
+y <- c("a" ,"b" ,NA , "d", NA, "f")
+good <- complete.cases(x, y)
+# this is a logical array
+good
+x[good]
+y[good]
+```
+
+**Removing Rows with NA values in a table**
+```
+logicalarray <- complete.cases(data)
+data[logicalarray]
+```
+
+- R-Language supports vectorization operation and broadcasting operation
 
 **Matrix Operation**
 - ``*``: element-wise multiplication
